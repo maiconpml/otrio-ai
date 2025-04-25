@@ -6,12 +6,12 @@ public:
 
 	State() {
 		board.resize(3, vector<pair<unsigned, unsigned>(3, pair<unsigned, unsigned>(0, 0)));
-		playerPieces.resize(2, { 0, 3, 3, 3 });
+		playerPieces.resize(2, { 0, 2, 2, 2 });
 		status = 0;
 	}
 
 	void put_piece(const unsigned player, const unsigned pieceSize, const unsigned x, const unsigned y) {
-		if (!playerPieces[player][pieceSize] || board[x][y].second >= pieceSize) return;
+		if (!playerPieces[player][pieceSize].first || board[x][y].second >= pieceSize) return;
 
 		--playerPieces[player][pieceSize];
 		board[x][y] = pair<unsigned, unsigned>(player, pieceSize);
