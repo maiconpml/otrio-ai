@@ -12,21 +12,46 @@ public:
 		playersPieces.resize(2, { 0, 2, 2, 2 });
 		status = 0;
 	}
+	bool check_victory(unsigned player) {
+		// linhas
+		for (unsigned i = 0; i < 3; ++i) {
+			if (board[i][0].first == player && board[i][1].first == player && board[i][2].first == player) {
+				return true;
+			}
+		}
+		//  colunas
+		for (unsigned j = 0; j < 3; ++j) {
+			if (board[0][j].first == player && board[1][j].first == player && board[2][j].first == player) {
+				return true;
+			}
+		}
+		// diagonais
+		if (board[0][0].first == player && board[1][1].first == player && board[2][2].first == player) {
+			return true;
+		}
+		if (board[0][2].first == player && board[1][1].first == player && board[2][0].first == player) {
+			return true;
+		}
 
-	void put_piece(const unsigned player, const unsigned pieceSize, const unsigned x, const unsigned y) {
-		if (!playersPieces[player][pieceSize] || board[x][y].second >= pieceSize) return;
+		return false;
+	}
+	bool put_piece(const unsigned player, const unsigned pieceSize, const unsigned x, const unsigned y) {
+
+		if (x >= 3 || y >= 3) return false;
+		if (pieceSize < 1 || pieceSize > 3) return false;
+		if (playersPieces[player][pieceSize] == 0) return false;
+		if (board[x][y].second >= pieceSize) return false;
+
 
 		--playersPieces[player][pieceSize];
 		board[x][y] = pair<unsigned, unsigned>(player, pieceSize);
 
-		if (board[x][0].first == player && board[x][1].first == player && board[x][2].first == player
-			|| board[0][y].first == player && board[1][y].first == player && board[2][y].first == player
-			|| board[0][0].first == player && board[1][1].first == player && board[2][2].first == player
-			|| board[0][2].first == player && board[1][1].first == player && board[2][0].first == player) {
+		if (check_victory(player)) {
 			status = player;
 		}
-	}
 
+		return true;
+	}
 	void print_board() {
 
 		for (unsigned i = 0; i < 3; ++i) {
