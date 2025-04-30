@@ -6,17 +6,24 @@
 
 using namespace chrono;
 
-int main() {
+int main(int argc, char *argv[]) {
 	State s;
 	unsigned currentPlayer = 2;
 	unsigned pieceSize, x, y;
 	int round = 0;
-	// Inicializando o Minimax com o estado atual
 	MiniMax minimax;
+	int ct;
+
+	if (argc < 2) {
+		ct = 6;
+	}
+	else {
+		ct = stoi(argv[1]);
+	}
 
 	while (s.get_status() == 0 && s.get_npieces()) {
 		
-		system("clear"); // ou "cls" no Windows
+		system("clear"); 
 		s.print_board();
 
 		if (currentPlayer == 1) {
@@ -33,14 +40,13 @@ int main() {
 		}
 		else {
 			// Jogador IA (Minimax)
-			cout << "\nPlayer " << currentPlayer << " (AI) is thinking...\n";
+			cout << "\nPlayer " << currentPlayer << " (AI) is choosing its move...\n";
 
 			
-			int ct = 6;
 			
 			vector<unsigned> bestMove;
 			if (round == 0) {
-				bestMove = { 0, 0, 1 };
+				bestMove = { 1, 1, 1 };
 			}
 			else {
 				minimax.minimax(s, currentPlayer, bestMove, ct);
@@ -60,7 +66,7 @@ int main() {
 		round++;
 	}
 
-	system("clear"); // Limpar tela final
+	system("clear");
 	s.print_board();
 	if (s.get_status()) {
 		cout << "\nPlayer " << s.get_status() << " victory!!\n\n";
