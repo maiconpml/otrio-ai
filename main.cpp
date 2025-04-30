@@ -8,7 +8,7 @@ using namespace chrono;
 
 int main() {
 	State s;
-	unsigned currentPlayer = 2;
+	unsigned currentPlayer = 1;
 	unsigned pieceSize, x, y;
 
 	// Inicializando o Minimax com o estado atual
@@ -35,8 +35,8 @@ int main() {
 			// Jogador IA (Minimax)
 			cout << "\nPlayer " << currentPlayer << " (AI) is thinking...\n";
 
-			// Encontra o melhor movimento da   IA
 			int ct = 6;
+			
 			vector<unsigned> bestMove;
 			minimax.minimax(s, currentPlayer, bestMove, ct);
 			x = bestMove[0];
@@ -59,7 +59,7 @@ int main() {
 		cout << "\nPlayer " << s.get_status() << " victory!!\n\n";
 	}
 	else {
-		cout << "\Draw!!\n\n";
+		cout << "\nDraw!!\n\n";
 	}
 
 	return 0;

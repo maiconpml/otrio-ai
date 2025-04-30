@@ -8,7 +8,6 @@ public:
 
 
 	int minimax(State& state, unsigned player, vector<unsigned>& bestMove, int depth) {
-
 		int best_move_aux = -1;
 
 		int bestVal = player == 2 ? numeric_limits<int>::min() : numeric_limits<int>::max();
