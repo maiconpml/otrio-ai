@@ -8,9 +8,9 @@ using namespace chrono;
 
 int main() {
 	State s;
-	unsigned currentPlayer = 1;
+	unsigned currentPlayer = 2;
 	unsigned pieceSize, x, y;
-
+	int round = 0;
 	// Inicializando o Minimax com o estado atual
 	MiniMax minimax;
 
@@ -35,10 +35,16 @@ int main() {
 			// Jogador IA (Minimax)
 			cout << "\nPlayer " << currentPlayer << " (AI) is thinking...\n";
 
+			
 			int ct = 6;
 			
 			vector<unsigned> bestMove;
-			minimax.minimax(s, currentPlayer, bestMove, ct);
+			if (round == 0) {
+				bestMove = { 0, 0, 1 };
+			}
+			else {
+				minimax.minimax(s, currentPlayer, bestMove, ct);
+			}
 			x = bestMove[0];
 			y = bestMove[1];
 			pieceSize = bestMove[2];
@@ -51,6 +57,7 @@ int main() {
 			cout << "Player " << s.get_status() << " victory!!" << endl;
 		}
 		currentPlayer = (currentPlayer == 1) ? 2 : 1;
+		round++;
 	}
 
 	system("clear"); // Limpar tela final
